@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://cbq1d4i1q32w1"]
+
+[ext_resource type="Shader" uid="uid://dkb6go7nr1s2" path="res://level.gdshader" id="1_oi3di"]
+[ext_resource type="PackedScene" uid="uid://dovfhhhecpsyo" path="res://prefabs/player.tscn" id="1_u52ul"]
+[ext_resource type="Script" uid="uid://dcurxwpv2jw60" path="res://scripts/ground.gd" id="1_vonw3"]
+[ext_resource type="PackedScene" uid="uid://ckm6ivn4q52lf" path="res://prefabs/wall.tscn" id="3_7s08m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u52ul"]
+
+[sub_resource type="Sky" id="Sky_vonw3"]
+sky_material = SubResource("ProceduralSkyMaterial_u52ul")
+
+[sub_resource type="Environment" id="Environment_u52ul"]
+background_mode = 2
+background_energy_multiplier = 1.9
+sky = SubResource("Sky_vonw3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0b4ue"]
+render_priority = 0
+shader = ExtResource("1_oi3di")
+shader_parameter/wave_speed = 1.4
+shader_parameter/wave_height = 0.3
+shader_parameter/wave_frequency = 2.0
+shader_parameter/water_color = Color(0.1, 0.4, 0.7, 1)
+shader_parameter/color_variation_strength = 0.03
+shader_parameter/roughness = 0.12
+shader_parameter/metallic = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u52ul"]
+size = Vector2(1, 1)
+subdivide_width = 150
+subdivide_depth = 150
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u52ul"]
+
+[node name="Level" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 38.0234, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u52ul")
+
+[node name="Terrain" type="Node" parent="."]
+
+[node name="Ground" type="MeshInstance3D" parent="Terrain"]
+transform = Transform3D(50, 0, 0, 0, 1.012, 0, 0, 0, 50, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_0b4ue")
+mesh = SubResource("PlaneMesh_u52ul")
+skeleton = NodePath("")
+script = ExtResource("1_vonw3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain/Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_u52ul")
+
+[node name="Wall1" parent="Terrain" instance=ExtResource("3_7s08m")]
+transform = Transform3D(1, 0, 0, 0, 25, 0, 0, 0, 50, 25, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_u52ul")]
+transform = Transform3D(0.997953, 0, 0, 0, 0.997953, 0, 0, 0, 0.997953, -0.013586, 0.0437489, 0.0147753)
+collision_layer = 2
+wall_min_slide_angle = 0.0174533

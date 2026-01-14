@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://5cpyw6wr1dyr"]
+
+[ext_resource type="PackedScene" uid="uid://ch7g52fd0yh7l" path="res://models/rubberduck.blend" id="1_kmtb7"]
+[ext_resource type="Material" uid="uid://c314bnb1o2ldd" path="res://models/materials/material_yellow.tres" id="2_dunvl"]
+[ext_resource type="Material" uid="uid://c7d840ixqbnco" path="res://models/materials/material_orange.tres" id="3_5hkt3"]
+[ext_resource type="Material" uid="uid://cu5ir8tlt1uoy" path="res://models/materials/material_black.tres" id="4_c8km2"]
+
+[node name="rubberduck" instance=ExtResource("1_kmtb7")]
+
+[node name="Body" parent="." index="0"]
+material_override = ExtResource("2_dunvl")
+
+[node name="Upper_Beak" parent="." index="1"]
+material_override = ExtResource("3_5hkt3")
+
+[node name="Lower_Beak" parent="." index="2"]
+material_override = ExtResource("3_5hkt3")
+
+[node name="Wings" parent="." index="3"]
+material_override = ExtResource("2_dunvl")
+
+[node name="Eyes" parent="." index="4"]
+material_override = ExtResource("4_c8km2")

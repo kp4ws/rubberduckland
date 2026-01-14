@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dovfhhhecpsyo"]
+
+[ext_resource type="Script" uid="uid://bocl3g3bhvo5m" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://c8f73c4dybvd8" path="res://models/z. rubberduck_backup_testing.blend" id="2_i3pqv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
+size = Vector3(1, 2.24896, 2.1001)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_onrkg")
+
+[node name="Rig" parent="." instance=ExtResource("2_i3pqv")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.733795, -0.136475)
+shape = SubResource("BoxShape3D_onrkg")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+spring_length = 5.0
+margin = 0.1
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
